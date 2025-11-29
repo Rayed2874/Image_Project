@@ -65,46 +65,14 @@ def histogram_button(event):
         print("Please load both Image 1 and Image 2!")
         return None
     histogram.histogram_difference(paths_histo)
-'''
+
 def load_image(event):
-    wildcard = "Image files(.jpg, .jpeg, .png)|*.jpg;*.jpeg;*.png"
-    choose_window = wx.FileDialog(None, "Select an image",wildcard = wildcard, style=wx.FD_OPEN)
-    if choose_window.ShowModal() == wx.ID_OK:#checks whether i clicked ok 
-        path = choose_window.GetPath()#list
-    choose_window.Destroy()
-
-    sizer3 = wx.BoxSizer(wx.VERTICAL)
-    sizer3.Add(btn6, 1, wx.ALL, 10)
-    sizer3.Add(sizer5,1, wx.ALL, 10)
-    sizer5 = wx.GridSizer(2,2,20,20)
-    sizer5.Add(btn8,1,wx.ALL,10)
-    sizer5.Add(btn7,1,wx.ALL,10)
-
-    # sizer5 = wx.GridSizer(2,2,10,10)
-    img = wx.Image(path, wx.BITMAP_TYPE_ANY)
-    img = img.Scale(300, 200)  
-    bmp = wx.Bitmap(img)
-    img_ctrl = wx.StaticBitmap(panel3, bitmap=bmp)
-    sizer5.Add(img_ctrl, 1, wx.ALL, 3)
-
-    sizer3.SetSizer(sizer5)
-    sizer3.Layout()
-
-
-
-
-    panel3.SetSizer(sizer3)
-'''
-def load_image(event):
-    # Determine which button was clicked (btn7 for image 1, btn8 for image 2)
-    # The control to update will be img_ctrl1 or img_ctrl2
-    # The key for the global dictionary will be "image1" or "image2"
+    
     if event.GetEventObject() == btn7:
         key = "image1"
     elif event.GetEventObject() == btn8:
         key = "image2"
     else:
-        # Should not happen
         return
 
     wildcard = "Image files(.jpg, .jpeg, .png)|*.jpg;*.jpeg;*.png"
@@ -116,21 +84,17 @@ def load_image(event):
     choose_window.Destroy()
 
     if path:
-        # Store the path globally for histogram_button to use
         global image_paths_for_hist
         image_paths_for_hist[key] = path
 
-        # Load and display the image in the correct control
         img = wx.Image(path, wx.BITMAP_TYPE_ANY)
-        # Scale to fit, but preserve aspect ratio for better look (using Scale)
-        img = img.Scale(300, 200, quality=wx.IMAGE_QUALITY_HIGH)
-        bmp = wx.Bitmap(img)
         
-        # Get the correct image control and update its bitmap
+        img = img.Scale(300, 200)
+        bmp = wx.Bitmap(img)
+    
         img_ctrl = image_controls_for_hist[key]
         img_ctrl.SetBitmap(bmp)
 
-        # Force panel3 to re-layout to display the new image
         panel3.Layout()
    
 
@@ -200,38 +164,24 @@ sizer4.Add(btn5, 1,wx.EXPAND | wx.ALL,5)
 sizer4.Add(btn4, 1,wx.EXPAND | wx.ALL,5)
 
 
-# sizer3 = wx.BoxSizer(wx.VERTICAL)
-# # sizer5 = wx.GridSizer(2,2,20,20)
-# sizer5.Add(btn7,1,wx.ALL,10)
-# sizer5.Add(btn8,1,wx.ALL,10)
-
-
-
-# sizer3.Add(btn6, 1, wx.ALL, 10)
-# sizer3.Add(sizer5,1, wx.ALL, 10)
-# panel3.SetSizer(sizer3)
-
-
 sizer5 = wx.GridSizer(2, 2, 20, 20)  # The sizer for the images/buttons
 sizer5.Add(btn7, 1, wx.ALL, 10)  # Load image 1 button
 sizer5.Add(btn8, 1, wx.ALL, 10)  # Load image 2 button
 
-# Placeholder StaticBitmaps for the images
-# We need these controls to exist so we can update them later
-# We'll use None for the bitmap initially.
+
 img_ctrl1 = wx.StaticBitmap(panel3, bitmap=wx.NullBitmap)
 img_ctrl2 = wx.StaticBitmap(panel3, bitmap=wx.NullBitmap)
 
 sizer5.Add(img_ctrl1, 1, wx.ALL | wx.EXPAND, 3)
 sizer5.Add(img_ctrl2, 1, wx.ALL | wx.EXPAND, 3)
 
-sizer3 = wx.BoxSizer(wx.VERTICAL) # The main vertical sizer for panel3
-sizer3.Add(btn6, 0, wx.ALL | wx.EXPAND, 10) # Histogram difference button (not expanding by default)
-sizer3.Add(sizer5, 1, wx.EXPAND | wx.ALL, 10) # The image/button sizer
+sizer3 = wx.BoxSizer(wx.VERTICAL) 
+sizer3.Add(btn6, 0, wx.ALL | wx.EXPAND, 10) 
+sizer3.Add(sizer5, 1, wx.EXPAND | wx.ALL, 10) 
 
 panel3.SetSizer(sizer3)
 
-# Global variables to store the loaded image paths and controls
+
 image_paths_for_hist = {"image1": None, "image2": None}
 image_controls_for_hist = {"image1": img_ctrl1, "image2": img_ctrl2}
 
