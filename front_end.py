@@ -48,9 +48,7 @@ def count_red_pixels_button(event):
     if not paths:
         print("No images selected!")
         return None
-
-    # Call the external file's function
-    countRedPixels.count_pixels(paths)
+    countRedPixels.count_pixels(paths,panel2)
 
 def detect_object_button(event):
     if not paths:
@@ -112,21 +110,20 @@ def load_image(event):
 app1 = wx.App()
 frame1 = wx.Frame(None, title = "Image Processing and Analysis Toolkit", size = (1500,900))
 panel1 = wx.Panel(frame1)
-panel1.SetBackgroundColour("#E37CDC")
+panel1.SetBackgroundColour("#F5EEFF")
 
 
 panel2 = wx.ScrolledWindow(frame1, style=wx.VSCROLL )
 panel2.SetScrollRate(20, 20)
-panel2.SetBackgroundColour("#ADF185")
-
+panel2.SetBackgroundColour("#9AE3F0")
 
 panel3 = wx.Panel(frame1)
-panel3.SetBackgroundColour("#F1C485")
+panel3.SetBackgroundColour("#C3F98AFF")
 
 sizer = wx.BoxSizer(wx.HORIZONTAL)
-sizer.Add(panel1, 1, wx.EXPAND | wx.ALL, 1)
-sizer.Add(panel2, 3, wx.EXPAND | wx.ALL, 1)
-sizer.Add(panel3, 2, wx.EXPAND | wx.ALL, 1)
+sizer.Add(panel1, 1, wx.EXPAND | wx.ALL, 0)
+sizer.Add(panel2, 3, wx.EXPAND | wx.ALL, 0)
+sizer.Add(panel3, 2, wx.EXPAND | wx.ALL, 0)
 
 frame1.SetSizer(sizer)
 
