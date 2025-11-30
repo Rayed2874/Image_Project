@@ -19,7 +19,7 @@ def to_greyscale(event):
 
     panel2.DestroyChildren()#to remove the previous used picture if any 
 
-    sizer1 = wx.GridSizer(5, 2, 10, 10)
+    sizer1 = wx.GridSizer(7, 2, 10, 10)
     font = wx.Font(20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_ITALIC, wx.FONTWEIGHT_BOLD)
     text1 = wx.StaticText(panel2,label = "Converted to GreyScale")
     text1.SetFont(font)
